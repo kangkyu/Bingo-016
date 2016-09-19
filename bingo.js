@@ -10236,13 +10236,14 @@ Elm.Bingo.make = function (_elm) {
    $Signal = Elm.Signal.make(_elm),
    $String = Elm.String.make(_elm);
    var _op = {};
-   var entryItem = F2(function (phrase,points) {
+   var entryItem = function (entry) {
       return A2($Html.li,
       _U.list([]),
-      _U.list([A2($Html.span,_U.list([$Html$Attributes.$class("phrase")]),_U.list([$Html.text(phrase)]))
-              ,A2($Html.span,_U.list([$Html$Attributes.$class("points")]),_U.list([$Html.text($Basics.toString(points))]))]));
-   });
-   var entryList = A2($Html.ul,_U.list([]),_U.list([A2(entryItem,"Future-Proof",100),A2(entryItem,"Doing Agile",200)]));
+      _U.list([A2($Html.span,_U.list([$Html$Attributes.$class("phrase")]),_U.list([$Html.text(entry.phrase)]))
+              ,A2($Html.span,_U.list([$Html$Attributes.$class("points")]),_U.list([$Html.text($Basics.toString(entry.points))]))]));
+   };
+   var newEntry = F3(function (phrase,points,id) {    return {phrase: phrase,points: points,id: id,wasSpoken: false};});
+   var entryList = A2($Html.ul,_U.list([]),_U.list([entryItem(A3(newEntry,"Future-Proof",100,1)),entryItem(A3(newEntry,"Doing Agile",200,2))]));
    var pageFooter = A2($Html.footer,
    _U.list([]),
    _U.list([A2($Html.a,_U.list([$Html$Attributes.href("http://pragstudio.com")]),_U.list([$Html.text("The Pragmatic Studio")]))]));
@@ -10256,6 +10257,7 @@ Elm.Bingo.make = function (_elm) {
                               ,title: title
                               ,pageHeader: pageHeader
                               ,pageFooter: pageFooter
+                              ,newEntry: newEntry
                               ,entryItem: entryItem
                               ,entryList: entryList
                               ,view: view

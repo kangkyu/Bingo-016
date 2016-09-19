@@ -20,16 +20,23 @@ pageFooter =
     [ a [ href "http://pragstudio.com" ] [ text "The Pragmatic Studio" ]
     ]
 
-entryItem phrase points =
+newEntry phrase points id =
+  { phrase = phrase
+  , points = points
+  , id = id
+  , wasSpoken = False
+  }
+
+entryItem entry =
   li [ ]
-    [ span [ class "phrase" ] [ text phrase ]
-    , span [ class "points" ] [ text (toString points) ]
+    [ span [ class "phrase" ] [ text entry.phrase ]
+    , span [ class "points" ] [ text (toString entry.points) ]
     ]
 
 entryList =
   ul [ ]
-    [ entryItem "Future-Proof" 100
-    , entryItem "Doing Agile" 200
+    [ entryItem (newEntry "Future-Proof" 100 1)
+    , entryItem (newEntry "Doing Agile" 200 2)
     ]
 
 view =
