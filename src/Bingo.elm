@@ -22,6 +22,18 @@ initialModel =
     ]
   }
 
+-- UPDATE
+
+type Action = NoOp | Sort -- union type (custom Action type)
+
+update action model =
+  case action of
+    NoOp ->
+      model
+
+    Sort ->
+      { model | entries = List.sortBy (\entry -> entry.points) model.entries }
+
 -- VIEW
 
 title message times =
@@ -60,4 +72,4 @@ view model =
 -- WIRE IT ALL TOGETHER
 
 main =
-  view initialModel
+  view (update Sort initialModel)
