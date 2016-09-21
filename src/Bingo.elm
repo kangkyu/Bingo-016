@@ -20,6 +20,15 @@ pageFooter =
     [ a [ href "http://pragstudio.com" ] [ text "The Pragmatic Studio" ]
     ]
 
+initialModel =
+  { entries =
+    [ newEntry "Doing Agile" 200 2
+    , newEntry "In the Cloud" 300 3
+    , newEntry "Future-Proof" 100 1
+    , newEntry "Rock-Star Ninja" 400 4
+    ]
+  }
+
 newEntry phrase points id =
   { phrase = phrase
   , points = points
@@ -33,19 +42,17 @@ entryItem entry =
     , span [ class "points" ] [ text (toString entry.points) ]
     ]
 
-entryList =
+entryList entries =
   ul [ ]
-    [ entryItem (newEntry "Future-Proof" 100 1)
-    , entryItem (newEntry "Doing Agile" 200 2)
-    ]
+    (List.map entryItem entries)
 
-view =
+view model =
   div [ id "container" ]
     [ pageHeader
-    , entryList
+    , entryList model.entries
     , pageFooter
     ]
 
 
 main =
-  view
+  view initialModel
