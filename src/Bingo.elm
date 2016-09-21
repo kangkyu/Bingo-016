@@ -2,6 +2,7 @@ module Bingo where
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import Html.Events exposing (..)
 import String exposing (toUpper, repeat, trimRight)
 
 import StartApp.Simple as StartApp
@@ -67,7 +68,7 @@ view address model =
   div [ id "container" ]
     [ pageHeader
     , entryList model.entries
-    , button [ class "sort" ] [ text "Sort" ]
+    , button [ class "sort", onClick address Sort ] [ text "Sort" ]
     , pageFooter
     ]
 
