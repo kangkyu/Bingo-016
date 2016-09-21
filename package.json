@@ -1,0 +1,27 @@
+{
+  "name": "bingo",
+  "version": "0.0.0",
+  "description": "Bingo demo app from pragmatic studio course",
+  "main": "bingo.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "elm package install",
+    "start": "brunch watch --server"
+  },
+  "keywords": [
+    "elm",
+    "bingo",
+    "pragmatic",
+    "studio"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ivanoats/bingo.git"
+  },
+  "author": "Ivan Storck",
+  "license": "ISC",
+  "devDependencies": {
+    "brunch": "^2.7.4",
+    "elm-brunch": "^0.4.4"
+  }
+}
