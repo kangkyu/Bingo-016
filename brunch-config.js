@@ -2,9 +2,6 @@
 
 module.exports = {
   config: {
-    paths: {
-      watched: ["app", "src"]
-    },
     server: {
       port: 3000
     },
@@ -18,8 +15,7 @@ module.exports = {
     },
     plugins: {
       elmBrunch: {
-        mainModules: ["src/Bingo.elm", "src/BingoUtils.elm"],
-        outputFolder: "public/"
+        mainModules: ["app/Bingo.elm", "app/BingoUtils.elm"]
       }
     }
   }
