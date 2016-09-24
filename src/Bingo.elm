@@ -4,11 +4,26 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import String exposing (toUpper, repeat, trimRight)
-
+import Signal exposing (..)
 import StartApp.Simple as StartApp
+
 
 -- MODEL
 
+type alias Entry =
+  { phrase    : String
+  , points    : Int
+  , id        : Int
+  , wasSpoken : Bool
+  }
+
+
+type alias Model =
+  { entries : List Entry
+  }
+
+
+newEntry : String -> Int -> Int -> Entry
 newEntry phrase points id =
   { phrase = phrase
   , points = points
@@ -16,6 +31,8 @@ newEntry phrase points id =
   , wasSpoken = False
   }
 
+
+initialModel : Model
 initialModel =
   { entries =
     [ newEntry "Doing Agile" 200 2
@@ -25,10 +42,13 @@ initialModel =
     ]
   }
 
+
 -- UPDATE
 
 type Action = NoOp | Sort -- union type (custom Action type)
 
+
+update : Action -> Model -> Model
 update action model =
   case action of
     NoOp ->
@@ -37,8 +57,10 @@ update action model =
     Sort ->
       { model | entries = List.sortBy (\entry -> entry.points) model.entries }
 
+
 -- VIEW
 
+title : String -> Int -> Html
 title message times =
   message ++ " "
     |> toUpper
@@ -46,24 +68,33 @@ title message times =
     |> trimRight
     |> text
 
+
+pageHeader : Html
 pageHeader =
   h1 [ ] [ title "Bingo!" 3 ]
 
+
+pageFooter : Html
 pageFooter =
   footer [ ]
     [ a [ href "http://pragstudio.com" ] [ text "The Pragmatic Studio" ]
     ]
 
+
+entryItem : Entry -> Html
 entryItem entry =
   li [ ]
     [ span [ class "phrase" ] [ text entry.phrase ]
     , span [ class "points" ] [ text (toString entry.points) ]
     ]
 
-entryList entries =
-  ul [ ]
-    (List.map entryItem entries)
 
+entryList : List Entry -> Html
+entryList entries =
+  ul [ ] (List.map entryItem entries)
+
+
+view : Address Action -> Model -> Html
 view address model =
   div [ id "container" ]
     [ pageHeader
@@ -75,9 +106,10 @@ view address model =
 
 -- WIRE IT ALL TOGETHER
 
+main : Signal Html
 main =
   StartApp.start
-  { model = initialModel
-  , view = view
-  , update = update
-  }
+    { model = initialModel
+    , view = view
+    , update = update
+    }
